@@ -5,6 +5,8 @@
 こんにちは！
 
 (*column*)
+hello
+(**main_para**)
 コラムです。
 またこらむ
 

@@ -1,5 +1,6 @@
 #/usr/bin/perl
 use utf8;
+use strict;
 
 my %words=GetHtmlHash();
 
@@ -15,22 +16,31 @@ sub TbHtml{
   
   my $block="";
   my $block_closer="";
-  my $para_opner="";
+  my $para_opener="";
   my $para_closer="";
   my $line_start="";
   
   my @lines=split(/\n/, $text);
   foreach my $line(@lines){
-    if($line=~ /^\(\*(\w+)\*\)$/){
+    if($line=~ /^\(\*\*(\w+)\*\*\)$/){
+      #特殊パラグラフ指定は"(**type**)"で行う。
+      my $class=$1;
+      $block.=$para_closer;
+      my $template=$words{"para_special_open"};
+      $template=~ s/\[CLASS\]/$class/g;
+      $para_opener=$template;
+      $para_closer=$words{"para_special_close"};
+      $line_start=$para_opener;
+    }elsif($line=~ /^\(\*(\w+)\*\)$/){
       #ブロック種類指定は"(*type*)"で行う。
       my $class=$1;
       $result.=$block.$para_closer.$block_closer;
       $block=$words{"block_open"};
       $block=~ s/\[CLASS\]/$class/g;
-      $para_opner=$words{"block_para_open"};
+      $para_opener=$words{"block_para_open"};
       $para_closer=$words{"block_para_close"};
       $block_closer=$words{"block_close"};
-      $line_start=$para_opner;
+      $line_start=$para_opener;
     }elsif($line=~ /^(\#{1,6})/){
       #見出しはマークダウン相当
       my $level=length($1);
@@ -68,6 +78,8 @@ sub GetHtmlHash{
     'block_close' => "</div>\n",
     'block_para_open' => '<p>',
     'block_para_close' => "</p>\n",
+    'para_special_open' => "<p class='[CLASS]'>",
+    'para_special_close' => "</p>\n",
     'h1_open' => '<h1>',
     'h1_close' => "</h1>\n",
     'h2_open' => '<h2>',

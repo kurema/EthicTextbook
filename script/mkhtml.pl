@@ -19,33 +19,36 @@ sub TbHtml{
   my $para_opener="";
   my $para_closer="";
   my $line_start="";
+  my $line_end="";
   
   my @lines=split(/\n/, $text);
   foreach my $line(@lines){
     if($line=~ /^\(\*\*(\w+)\*\*\)$/){
       #特殊パラグラフ指定は"(**type**)"で行う。
       my $class=$1;
-      $block.=$para_closer;
+      $block.=$line_end;
       my $template=$words{"para_special_open"};
       $template=~ s/\[CLASS\]/$class/g;
       $para_opener=$template;
       $para_closer=$words{"para_special_close"};
       $line_start=$para_opener;
+      $line_end="";
     }elsif($line=~ /^\(\*(\w+)\*\)$/){
       #ブロック種類指定は"(*type*)"で行う。
       my $class=$1;
-      $result.=$block.$para_closer.$block_closer;
+      $result.=$block.$line_end.$block_closer;
       $block=$words{"block_open"};
       $block=~ s/\[CLASS\]/$class/g;
       $para_opener=$words{"block_para_open"};
       $para_closer=$words{"block_para_close"};
       $block_closer=$words{"block_close"};
       $line_start=$para_opener;
+      $line_end="";
     }elsif($line=~ /^(\#{1,6})/){
       #見出しはマークダウン相当
       my $level=length($1);
       $line=~ s/^\#{1,6}\s*//;
-      $result.=$block.$para_closer.$block_closer;
+      $result.=$block.$line_end.$block_closer;
       $result.=$words{"h".$level."_open"}.$line.$words{"h".$level."_close"};
       $para_opener=$words{"content_open"};
       $para_opener=~ s/\[CLASS\]/level_$level/g;
@@ -53,11 +56,15 @@ sub TbHtml{
       $line_start=$para_opener;
       $block="";
       $block_closer="";
+      $line_end="";
     }elsif($line=~ /^\s*$/){
-      $line_start=$para_closer.$para_opener;
+      $block.=$line_end;
+      $line_start=$para_opener;
+      $line_end="";
     }else{
       $block.=$line_start.TextDecorate($line);
       $line_start=$words{"enter"};
+      $line_end=$para_closer;
     }
   }
   $result.=$block.$para_closer.$block_closer;

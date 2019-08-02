@@ -1,8 +1,113 @@
-<div class="title_page"><p class='title'>真実</p>
+<html>
+  <head>
+    <style>
+div.question p.q:before, div.question p.a:before, div.question p.e:before{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  height :2em;
+  border-radius: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+div.question p.q:before{
+  content:"問題";
+  background: #f08c32;
+}
+div.question p.e:before{
+  content:"解説";
+  background: gray;
+}
+div.question p.e, div.question p.e_noheader{
+}
+span.decoration1{
+  font-weight: bold;
+}
+span.decoration2{
+  color: orange;
+}
+
+body{
+  counter-reset: chap-h1 chap-h2 chap-h3;
+}
+
+h1{
+  counter-reset: chap-h2 chap-h3;
+}
+h1:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+h2{
+  counter-reset: chap-h3;
+  display: block;
+  background: #f08c32;
+  height:1.8em;
+}
+h2:before{
+  counter-increment: chap-h2;
+  content: counter(chap-h1) "-" counter(chap-h2);
+  margin-right: 0.5em;
+}
+h3{
+}
+h3:before{
+  counter-increment: chap-h3;
+  content: counter(chap-h1) "-" counter(chap-h2) "-" counter(chap-h3);
+  margin-right: 0.5em;
+}
+h3:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+h4{
+  position: relative;
+  margin-left:1.5em;
+}
+h4:before{
+  width:1em;
+  height:1em;
+  border-radius: 0.1em;
+  border-width:0.1em;
+  border-color: #c85a00;
+  background: #f08c32;
+  border-style: solid;
+  position: absolute;
+  content: "";
+  margin-left:-1.5em;
+}
+
+p.caption{
+  font-size:0.8em;
+  border-radius:0.4em;
+  border-color:black;
+  border-style:dotted;
+  border-width:1px;
+}
+p.caption:before{
+  content: "補遺";
+  display: block;
+  font-weight: bold;
+}
+p.desc{
+  font-weight: bold;
+}
+    </style>
+  </head>
+  <body>
+<h1>真実</h1>
 <p class='desc'>正しい行動が何かを知るには事実を知らなければなりません。
 真実について学ぶことは現代倫理学の主要な要素です。
 具体的な解明方法は諸学に譲りますが、ここでは一般的な探求方法を学びます。</p>
-</div>
 <h2>命題肯定要因</h2>
 <p class='desc'>「ある命題が真ならば都合がいいから真である」というのは論理的には明白な誤りです。
 しかしそれを信じることが倫理的に正しいならば信じるべきです。
@@ -34,24 +139,25 @@
 <h3>論理学</h3>
 <p class='desc'>論理は現実世界でどのような推論が正しいかを研究する分野です。
 論理学のルールは効果性には適用できません。</p>
-<h3>妥当な肯定命題</h3>
-<p class='level_3'>肯定命題であるということは命題が肯定されている理由に過ぎません。
+<h4>妥当性</h4>
+<p class='level_4'>肯定命題であるということは命題が肯定されている理由に過ぎません。
 真実性肯定命題は実際に真実と一致している場合に、効果性肯定命題は本当に望ましい効果が得られる場合に<span class="decoration1">妥当</span>であるとされます。</p>
 <h4>適用可能性</h4>
 <p class='level_4'>現実世界は論理的に一貫していて、推論規則(論理学のルール)が適用できると考えられています。</p>
 <p class='level_4'>妥当な真実性肯定命題は現実世界における真実と一致しているので推論規則が適用できます。
 論理的矛盾が生じた場合、少なくとも一方が妥当ではありません。</p>
 <p class='level_4'>一方で妥当な効果性肯定命題には推論規則が適用できません。
-対応肯定命題は真実性肯定命題なので推論規則が適用することができます。</p>
+論理的矛盾が生じたとしてもどちらも正しいということはあり得ます。
+対応肯定命題は真実性肯定命題なので推論規則を適用することができます。</p>
 <h4>擬態</h4>
 <p class='level_4'>Fix:命題肯定方法が「信じる」である効果性肯定命題が存在した場合を考えます。</p>
-<div class="question"><p class='q'>あなたは神が存在すると信じますか？
+<div class="question"><p class='q'>あなたは神が存在すると信じますか？  <br />
 またその理由は何ですか？</p>
-<p class='a'>この問題のポイントは質問が「神は存在しますか？」ではなく「神が存在すると信じますか？」である点です。
+<p class='e'>この問題のポイントは質問が「神は存在しますか？」ではなく「神が存在すると信じますか？」である点です。
 この場合、真実性から議論するのではなく、効果性から解答しなければなりません。</p>
-<p class='a'>解答例は「神を信じることで倫理的に行動できる」「神を信じることは不合理な推論をしがちだ」などです。
+<p class='e_noheader'>解答例は「神を信じることで倫理的に行動できる」「神を信じることは不合理な推論をしがちだ」などです。
 真実性について論じる場合には「私は真実を信じるべきだと考える」と一言断っておくとよいでしょう。</p>
-<p class='a'>「神の存在」という命題は信じる/信じないことによる効果が大きいので特にこの点は注意をしなければなりません。
+<p class='e_noheader'>「神の存在」という命題は信じる/信じないことによる効果が大きいので特にこの点は注意をしなければなりません。
 「神の存在」またはその否定が一見真実性肯定命題に見えたとしても、それが効果性肯定命題が擬態したものである可能性も無視できません。
 その場合は肯定理由は一見もっともらしいが不合理なものになり解答として不適切になるので注意が必要です。
 このような命題においては設問が単に「神は存在しますか？」というものだとしても効果性から議論することが望ましいでしょう。</p>

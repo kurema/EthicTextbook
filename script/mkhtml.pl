@@ -7,6 +7,7 @@ my %words=GetHtmlHash();
 if(@ARGV == 1){
   open(my $F, "<", $ARGV[0]) or die;
   my $text = do { local $/; <$F> };
+  print GetHtmlHeader();
   print TbHtml($text);
 }
 
@@ -63,7 +64,12 @@ sub TbHtml{
       $line_end="";
     }else{
       $block.=$line_start.TextDecorate($line);
-      $line_start=$words{"enter"};
+      if($line=~ /\s{2}$/){
+        $line_start=$words{"break"};
+      }else{
+        $line_start=$words{"enter"};
+      }
+      
       $line_end=$para_closer;
     }
   }
@@ -81,6 +87,7 @@ sub TextDecorate{
 sub GetHtmlHash{
   return (
     'enter' => "\n",
+    'break' => "<br />\n",
     'block_open' => '<div class="[CLASS]">',
     'block_close' => "</div>\n",
     'block_para_open' => '<p>',
@@ -106,4 +113,116 @@ sub GetHtmlHash{
     'decoration2_open' => '<span class="decoration2">',
     'decoration2_close' => '</span>'
   );
+}
+
+sub GetHtmlHeader{
+# 汎用化の為にその内外部指定にするかも。
+  return << "EOL";
+<html>
+  <head>
+    <style>
+div.question p.q:before, div.question p.a:before, div.question p.e:before{
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  height :2em;
+  border-radius: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+div.question p.q:before{
+  content:"問題";
+  background: #f08c32;
+}
+div.question p.e:before{
+  content:"解説";
+  background: gray;
+}
+div.question p.e, div.question p.e_noheader{
+}
+span.decoration1{
+  font-weight: bold;
+}
+span.decoration2{
+  color: orange;
+}
+
+body{
+  counter-reset: chap-h1 chap-h2 chap-h3;
+}
+
+h1{
+  counter-reset: chap-h2 chap-h3;
+}
+h1:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+h2{
+  counter-reset: chap-h3;
+  display: block;
+  background: #f08c32;
+  height:1.8em;
+}
+h2:before{
+  counter-increment: chap-h2;
+  content: counter(chap-h1) "-" counter(chap-h2);
+  margin-right: 0.5em;
+}
+h3{
+}
+h3:before{
+  counter-increment: chap-h3;
+  content: counter(chap-h1) "-" counter(chap-h2) "-" counter(chap-h3);
+  margin-right: 0.5em;
+}
+h3:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+h4{
+  position: relative;
+  margin-left:1.5em;
+}
+h4:before{
+  width:1em;
+  height:1em;
+  border-radius: 0.1em;
+  border-width:0.1em;
+  border-color: #c85a00;
+  background: #f08c32;
+  border-style: solid;
+  position: absolute;
+  content: "";
+  margin-left:-1.5em;
+}
+
+p.caption{
+  font-size:0.8em;
+  border-radius:0.4em;
+  border-color:black;
+  border-style:dotted;
+  border-width:1px;
+}
+p.caption:before{
+  content: "補遺";
+  display: block;
+  font-weight: bold;
+}
+p.desc{
+  font-weight: bold;
+}
+    </style>
+  </head>
+  <body>
+EOL
 }

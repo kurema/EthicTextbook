@@ -2,12 +2,10 @@
   <head>
     <style>
 div.question p.q:before, div.question p.a:before, div.question p.e:before{
-  display: -webkit-flex;
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
+
   height :2em;
   border-radius: 1em;
   text-align: center;
@@ -24,6 +22,15 @@ div.question p.e:before{
 }
 div.question p.e, div.question p.e_noheader{
 }
+div.question:before, div.question:after{
+  content:"";
+  
+  display: block;
+  overflow: hidden;
+  border-style: dotted;
+  border-width: 3px;
+  border-color: #f08c32;
+}
 span.decoration1{
   font-weight: bold;
 }
@@ -33,6 +40,20 @@ span.decoration2{
 
 body{
   counter-reset: chap-h1 chap-h2 chap-h3;
+  margin: 3em;
+}
+
+div.chapter_title{
+  counter-reset: chap-h2 chap-h3;
+}
+div.chapter_title p.title{
+  font-weight:bold;
+  font-size:1.8em;
+}
+div.chapter_title p.title:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
 }
 
 h1{
@@ -44,15 +65,20 @@ h1:before{
   margin-right: 0.5em;
 }
 h2{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
   counter-reset: chap-h3;
-  display: block;
   background: #f08c32;
   height:1.8em;
+  color:white;
 }
 h2:before{
   counter-increment: chap-h2;
   content: counter(chap-h1) "-" counter(chap-h2);
   margin-right: 0.5em;
+  margin-left: 0.5em;
 }
 h3{
 }
@@ -76,7 +102,7 @@ h4{
 h4:before{
   width:1em;
   height:1em;
-  border-radius: 0.1em;
+  border-radius: 0.2em;
   border-width:0.1em;
   border-color: #c85a00;
   background: #f08c32;
@@ -92,6 +118,7 @@ p.caption{
   border-color:black;
   border-style:dotted;
   border-width:1px;
+  padding:0.5em;
 }
 p.caption:before{
   content: "補遺";
@@ -101,13 +128,53 @@ p.caption:before{
 p.desc{
   font-weight: bold;
 }
+
+div.remember:before{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0 1em;
+
+  background: #f08c32;
+  color: white;
+  content: "覚えよう！";
+}
+div.remember{
+  background: #fadcbe;
+  font-weight: bold;
+  margin:1em 0;
+  padding:0 0 0.5em 0;
+}
+div.remember ul{
+  list-style-type: square;
+}
+
+div.column:before{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0 0.5em;
+
+  content: "コラム";
+  font-weight: bold;
+}
+
+div.column{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  padding: 0.5em;
+  magrin: 0.5em;
+}
     </style>
   </head>
   <body>
-<h1>真実</h1>
+<div class="chapter_title"><p class='title'>真実</p>
 <p class='desc'>正しい行動が何かを知るには事実を知らなければなりません。
 真実について学ぶことは現代倫理学の主要な要素です。
 具体的な解明方法は諸学に譲りますが、ここでは一般的な探求方法を学びます。</p>
+</div>
 <h2>命題肯定要因</h2>
 <p class='desc'>「ある命題が真ならば都合がいいから真である」というのは論理的には明白な誤りです。
 しかしそれを信じることが倫理的に正しいならば信じるべきです。
@@ -137,20 +204,41 @@ p.desc{
 <p class='level_4'>効果性肯定命題は「～と信じることは望ましい」などと真実性肯定命題に書き換えることができます。
 書き換えられた命題を<span class="decoration1">対応肯定命題</span>と呼びます。</p>
 <h3>論理学</h3>
-<p class='desc'>論理は現実世界でどのような推論が正しいかを研究する分野です。
+<p class='desc'>論理学は現実世界でどのような推論が正しいかを研究する分野です。
 論理学のルールは効果性には適用できません。</p>
 <h4>妥当性</h4>
 <p class='level_4'>肯定命題であるということは命題が肯定されている理由に過ぎません。
-真実性肯定命題は実際に真実と一致している場合に、効果性肯定命題は本当に望ましい効果が得られる場合に<span class="decoration1">妥当</span>であるとされます。</p>
+真実性肯定命題は実際に真実と一致している場合に、効果性肯定命題は本当に望ましい効果が得られる場合に<span class="decoration1">妥当</span>です。</p>
 <h4>適用可能性</h4>
 <p class='level_4'>現実世界は論理的に一貫していて、推論規則(論理学のルール)が適用できると考えられています。</p>
 <p class='level_4'>妥当な真実性肯定命題は現実世界における真実と一致しているので推論規則が適用できます。
 論理的矛盾が生じた場合、少なくとも一方が妥当ではありません。</p>
-<p class='level_4'>一方で妥当な効果性肯定命題には推論規則が適用できません。
+<p class='level_4'>一方で<span class="decoration2">妥当な効果性肯定命題には推論規則が適用できません</span>。
 論理的矛盾が生じたとしてもどちらも正しいということはあり得ます。
 対応肯定命題は真実性肯定命題なので推論規則を適用することができます。</p>
-<h4>擬態</h4>
-<p class='level_4'>Fix:命題肯定方法が「信じる」である効果性肯定命題が存在した場合を考えます。</p>
+<h3>擬態</h3>
+<p class='desc'>効果性肯定命題が真実性肯定命題に見えることが多くあります。
+区別するには様々な工夫が必要です。</p>
+<h4>認識困難性</h4>
+<p class='level_4'>効果性肯定命題をそうだと認識することは、その効果を弱めることになります。
+従って効果を拡大するために、効果性肯定命題を真実性肯定命題に見せかけることが多くあります。
+これを<span class="decoration1">擬態</span>と呼びます。</p>
+<p class='level_4'>例えば論理的な一貫性を担保する、科学的根拠があるようにを装う、権威を用いて正当化するという手段が用いられます。
+また偶発的に真実性肯定命題として妥当である(真実である)ことを利用し、効果性肯定命題であることを否定する場合もあります。</p>
+<p class='level_4'>認識手段が既知である場合、その手段への対策が行われることもあります。
+そのため認識手段は時間が経つにつれて高度になる傾向があります。
+継続的な情報収集が必要です。</p>
+<div class="column"><p>例えば命題肯定方法が「信じる」である場合、その人はその命題をできるだけ信じられるような根拠を見つけ出し、そしてそれが事実であると信じるでしょう。
+ある命題を事実であると信じるということは、真実性肯定命題であると見なすことを意味します。
+効果性肯定命題であると認めることは必ずしもそれが真実であることを否定するものではありませんが、自分の信念を疑わせるものになりかねません。</p>
+<p>人々は信じるべきことを信じるために様々な手段を講じてきました。
+そして真実でないことを真実であるとみなしてきました。
+本書が書かれた時点において効果性肯定命題の存在を認識すらしていない人も多くいます。
+あなたが真実を見極めることを望むならば、それは決して容易なものにはならないでしょう。
+真実を見極めた上で倫理的に振る舞おうとするならばそれはさらに困難になるはずです。</p>
+</div>
+<h3>認識手段</h3>
+<p class='level_3'>認識する手段はいくらかありますね。</p>
 <div class="question"><p class='q'>あなたは神が存在すると信じますか？  <br />
 またその理由は何ですか？</p>
 <p class='e'>この問題のポイントは質問が「神は存在しますか？」ではなく「神が存在すると信じますか？」である点です。
@@ -161,4 +249,10 @@ p.desc{
 「神の存在」またはその否定が一見真実性肯定命題に見えたとしても、それが効果性肯定命題が擬態したものである可能性も無視できません。
 その場合は肯定理由は一見もっともらしいが不合理なものになり解答として不適切になるので注意が必要です。
 このような命題においては設問が単に「神は存在しますか？」というものだとしても効果性から議論することが望ましいでしょう。</p>
+</div>
+<div class="remember">
+<ul>
+  <li>効果性肯定命題には推論規則が適用できない。</li>
+  <li>効果性肯定命題は真実性肯定命題を装うことが多い。</li>
+</ul>
 </div>

@@ -189,6 +189,9 @@ div.question:before, div.question:after{
   border-width: 3px;
   border-color: #f08c32;
 }
+div.question{
+  margin:1em 0;
+}
 span.decoration1{
   font-weight: bold;
 }

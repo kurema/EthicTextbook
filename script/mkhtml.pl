@@ -25,6 +25,8 @@ sub TbHtml{
   my $list_opener="";
   my $list_closer="";
   
+  my $dl_mode=0;
+  
   my @lines=split(/\n/, $text);
   foreach my $line(@lines){
     if($line=~ /^\(\*\*(\w+)\*\*\)$/){
@@ -38,6 +40,7 @@ sub TbHtml{
       $line_start=$para_opener;
       $line_end="";
       $list_opener="";
+      $dl_mode=0;
     }elsif($line=~ /^\(\*(\w+)\*\)$/){
       #ブロック種類指定は"(*type*)"で行う。
       my $class=$1;
@@ -50,6 +53,7 @@ sub TbHtml{
       $line_start=$para_opener;
       $line_end="";
       $list_opener="";
+      $dl_mode=0;
     }elsif($line=~ /^(\#{1,6})/){
       #見出しはマークダウン相当
       my $level=length($1);
@@ -64,11 +68,13 @@ sub TbHtml{
       $block_closer="";
       $line_end="";
       $list_opener="";
+      $dl_mode=0;
     }elsif($line=~ /^\s*$/){
       $block.=$line_end;
       $line_start=$para_opener;
       $line_end="";
       $list_opener="";
+      $dl_mode=0;
     }elsif($line=~ /^\s*\*\s+/){
       $line=~ s/^\s*\*\s+//g;
       if($list_opener ne ""){
@@ -80,6 +86,7 @@ sub TbHtml{
         $line_start="";
         $block.=$words{"ul_open"}.$list_opener.$line.$list_closer;
       }
+      $dl_mode=0;
     }elsif($line=~ /^\s*\d+\.\s+/){
       $line=~ s/^\s*\d+\.\s+//g;
       if($list_opener ne ""){
@@ -91,7 +98,27 @@ sub TbHtml{
         $line_start="";
         $block.=$words{"ol_open"}.$list_opener.$line.$list_closer;
       }
+    }elsif($line=~ /^\:/){
+      #行頭":","::"でdl dt dd
+      #行頭":"ならdt
+      #行頭"::"ならdd
+      $line=~ s/^(\:{1,2})//;
+      my $dl_level=length($1);
+      if($dl_mode == 0){
+        $block.=$words{"dl_open"};
+        $dl_mode=1;
+        $line_start="";
+        $line_end=$words{"dl_close"};
+      }
+      if($dl_level==1){
+        $block.=$words{"dt_open"}.TextDecorate($line).$words{"dt_close"};
+      }else{
+        $block.=$words{"dd_open"}.TextDecorate($line).$words{"dd_close"};
+      }
     }else{
+      if($line_end ne $para_closer && $line_end ne ""){
+        $block.=$line_end;
+      }
       $block.=$line_start.TextDecorate($line);
       if($line=~ /\s{2}$/){
         $line_start=$words{"break"};
@@ -101,6 +128,7 @@ sub TbHtml{
       
       $line_end=$para_closer;
       $list_opener="";
+      $dl_mode=0;
     }
   }
   $result.=$block.$line_end.$block_closer;
@@ -150,6 +178,12 @@ sub GetHtmlHash{
     'ul_li_close' => "</li>\n",
     'ol_li_open' => "  <li>",
     'ol_li_close' => "</li>\n",
+    'dl_open' => "<dl>\n",
+    'dl_close' => "</dl>\n",
+    'dt_open' => "  <dt>",
+    'dt_close' => "</dt>\n",
+    'dd_open' => "  <dd>",
+    'dd_close' => "</dd>\n",
   );
 }
 
@@ -202,6 +236,8 @@ span.decoration2{
 body{
   counter-reset: chap-h1 chap-h2 chap-h3;
   margin: 3em;
+}
+p{
 }
 
 div.chapter_title{
@@ -313,8 +349,12 @@ div.remember ul{
 div.column:before{
   display: flex;
   align-items: center;
-  justify-content: left;
-  padding: 0 0.5em;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
 
   content: "コラム";
   font-weight: bold;
@@ -325,8 +365,33 @@ div.column{
   border-color: #f08c32;
   border-radius: 1em;
   
-  padding: 0.5em;
-  magrin: 0.5em;
+  magrin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.column p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.column p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.column p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+dt{
+  margin-block-start: 1em;
+}
+dd{
+  text-indent:1em;
+  margin-inline-start: 0;
+  margin-block-end: 1em;
 }
     </style>
   </head>

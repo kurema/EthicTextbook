@@ -26,6 +26,7 @@ sub TbHtml{
   my $list_closer="";
   
   my $dl_mode=0;
+  my $dl_line_start="";
   
   my @lines=split(/\n/, $text);
   foreach my $line(@lines){
@@ -106,14 +107,48 @@ sub TbHtml{
       my $dl_level=length($1);
       if($dl_mode == 0){
         $block.=$words{"dl_open"};
-        $dl_mode=1;
         $line_start="";
-        $line_end=$words{"dl_close"};
       }
       if($dl_level==1){
-        $block.=$words{"dt_open"}.TextDecorate($line).$words{"dt_close"};
+        if($dl_mode==2){
+          $block.=$words{"dd_close"}.$words{"dt_open"};
+          $dl_line_start="";
+        }
+        elsif($dl_mode==0){
+          $block.=$words{"dt_open"};
+          $dl_line_start="";
+        }
+        else{
+          $block.=$dl_line_start;
+        }
+        if($line=~ /\s{2}$/){
+          $dl_line_start=$words{"break"};
+        }else{
+          $dl_line_start=$words{"enter"};
+        }
+        
+        $block.=TextDecorate($line);
+        $line_end=$words{"dt_close"}.$words{"dl_close"};
+        $dl_mode=1;
       }else{
-        $block.=$words{"dd_open"}.TextDecorate($line).$words{"dd_close"};
+        if($dl_mode==1){
+          $block.=$words{"dt_close"}.$words{"dd_open"};
+        }
+        elsif($dl_mode==0){
+          $block.=$words{"dd_open"};
+        }
+        else{
+          $block.=$dl_line_start;
+        }
+        if($line=~ /\s{2}$/){
+          $dl_line_start=$words{"break"};
+        }else{
+          $dl_line_start=$words{"enter"};
+        }
+
+        $block.=TextDecorate($line);
+        $line_end=$words{"dd_close"}.$words{"dl_close"};
+        $dl_mode=2;
       }
     }else{
       if($line_end ne $para_closer && $line_end ne ""){
@@ -190,8 +225,10 @@ sub GetHtmlHash{
 sub GetHtmlHeader{
 # 汎用化の為にその内外部指定にするかも。
   return << "EOL";
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <style>
 div.question p.q:before, div.question p.a:before, div.question p.e:before{
   display: flex;
@@ -230,7 +267,7 @@ span.decoration1{
   font-weight: bold;
 }
 span.decoration2{
-  color: orange;
+  color: #e68530;
 }
 
 body{
@@ -238,6 +275,8 @@ body{
   margin: 3em;
 }
 p{
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
 }
 
 div.chapter_title{
@@ -389,9 +428,9 @@ dt{
   margin-block-start: 1em;
 }
 dd{
-  text-indent:1em;
   margin-inline-start: 0;
   margin-block-end: 1em;
+  margin-left: 1em;
 }
     </style>
   </head>

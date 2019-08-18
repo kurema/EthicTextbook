@@ -36,6 +36,53 @@ div.question:before, div.question:after{
 div.question{
   margin:1em 0;
 }
+
+div.thex{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.thex:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  font-weight: bold;
+  content:"思考実験";
+}
+div.thex p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.thex p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.thex p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+div.thex p.e:before{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
 span.decoration1{
   font-weight: bold;
 }
@@ -177,7 +224,7 @@ div.column{
   border-color: #f08c32;
   border-radius: 1em;
   
-  magrin: 0.5em 0;
+  margin: 0.5em 0;
   padding:0 0 0.5em 0;
 }
 div.column p{

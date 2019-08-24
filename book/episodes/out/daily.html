@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+div.question p.q:before, div.question p.a:before, div.question p.e:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height :2em;
+  border-radius: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+div.question p.q:before{
+  content:"問題";
+  background: #f08c32;
+}
+div.question p.e:before{
+  content:"解説";
+  background: gray;
+}
+div.question p.e, div.question p.e_noheader{
+}
+div.question:before, div.question:after{
+  content:"";
+  
+  display: block;
+  overflow: hidden;
+  border-style: dotted;
+  border-width: 3px;
+  border-color: #f08c32;
+}
+div.question{
+  margin:1em 0;
+}
+
+div.thex{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.thex:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  font-weight: bold;
+  content:"思考実験";
+}
+div.thex p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.thex p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.thex p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+div.thex p.e:before{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+span.decoration1{
+  font-weight: bold;
+}
+span.decoration2{
+  color: #e68530;
+}
+
+body{
+  counter-reset: chap-h1 chap-h2 chap-h3;
+  margin: 3em;
+}
+p{
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+}
+
+div.chapter_title{
+  counter-reset: chap-h2 chap-h3;
+}
+div.chapter_title p.title{
+  font-weight:bold;
+  font-size:1.8em;
+}
+div.chapter_title p.title:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+
+h1{
+  counter-reset: chap-h2 chap-h3;
+}
+h1:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  counter-reset: chap-h3;
+  background: #f08c32;
+  height:1.8em;
+  color:white;
+}
+h2:before{
+  counter-increment: chap-h2;
+  content: counter(chap-h1) "-" counter(chap-h2);
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+h3{
+}
+h3:before{
+  counter-increment: chap-h3;
+  content: counter(chap-h1) "-" counter(chap-h2) "-" counter(chap-h3);
+  margin-right: 0.5em;
+}
+h3:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+h4{
+  position: relative;
+  margin-left:1.5em;
+}
+h4:before{
+  width:1em;
+  height:1em;
+  border-radius: 0.2em;
+  border-width:0.1em;
+  border-color: #c85a00;
+  background: #f08c32;
+  border-style: solid;
+  position: absolute;
+  content: "";
+  margin-left:-1.5em;
+}
+
+p.caption{
+  font-size:0.8em;
+  border-radius:0.4em;
+  border-color:black;
+  border-style:dotted;
+  border-width:1px;
+  padding:0.5em;
+}
+p.caption:before{
+  content: "補遺";
+  display: block;
+  font-weight: bold;
+}
+p.desc{
+  font-weight: bold;
+}
+
+div.remember:before{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0 1em;
+
+  background: #f08c32;
+  color: white;
+  content: "覚えよう！";
+}
+div.remember{
+  background: #fadcbe;
+  font-weight: bold;
+  margin:1em 0;
+  padding:0 0 0.5em 0;
+}
+div.remember ul{
+  list-style-type: square;
+}
+
+div.column:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  content: "コラム";
+  font-weight: bold;
+}
+
+div.column{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.column p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.column p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.column p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+dt{
+  margin-block-start: 1em;
+}
+dd{
+  margin-inline-start: 0;
+  margin-block-end: 1em;
+  margin-left: 1em;
+}
+    </style>
+  </head>
+  <body>
+<h2>日常の倫理</h2>

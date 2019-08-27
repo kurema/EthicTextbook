@@ -174,7 +174,26 @@ sub TextDecorate{
   my ($text)=@_;
   $text=~ s/\*\*([^\*]+)\*\*/$words{'decoration2_open'}$1$words{'decoration2_close'}/g;
   $text=~ s/\*([^\*]+)\*/$words{'decoration1_open'}$1$words{'decoration1_close'}/g;
+  $text=~ s/\(\((\d+)\)\)/NumberToCircle($1)/eg;
   return $text;
+}
+
+sub NumberToCircle{
+  my ($number)=@_;
+  if($number+0 < 0){
+    $number=0-$number;
+  }
+  if($number+0 == 0){
+    return "&#9450;";
+  }elsif($number+0 <= 20){
+    return "&#". ($number + 9311) . ";";
+  }elsif($number+0 <= 35){
+    return "&#". ($number + 12860) . ";";
+  }elsif($number+0 <= 50){
+    return "&#". ($number + 12941) . ";";
+  }else{
+    return "(".$number.")";
+  }
 }
 
 sub GetHtmlHash{

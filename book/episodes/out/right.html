@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+div.question p.q:before, div.question p.a:before, div.question p.e:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height :2em;
+  border-radius: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+div.question p.q:before{
+  content:"問題";
+  background: #f08c32;
+}
+div.question p.e:before{
+  content:"解説";
+  background: gray;
+}
+div.question p.e, div.question p.e_noheader{
+}
+div.question:before, div.question:after{
+  content:"";
+  
+  display: block;
+  overflow: hidden;
+  border-style: dotted;
+  border-width: 3px;
+  border-color: #f08c32;
+}
+div.question{
+  margin:1em 0;
+}
+
+div.thex{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.thex:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  font-weight: bold;
+  content:"思考実験";
+}
+div.thex p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.thex p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.thex p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+div.thex p.e:before{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+span.decoration1{
+  font-weight: bold;
+}
+span.decoration2{
+  color: #e68530;
+}
+
+body{
+  counter-reset: chap-h1 chap-h2 chap-h3;
+  margin: 3em;
+}
+p{
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+}
+
+div.chapter_title{
+  counter-reset: chap-h2 chap-h3;
+}
+div.chapter_title p.title{
+  font-weight:bold;
+  font-size:1.8em;
+}
+div.chapter_title p.title:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+
+h1{
+  counter-reset: chap-h2 chap-h3;
+}
+h1:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  counter-reset: chap-h3;
+  background: #f08c32;
+  height:1.8em;
+  color:white;
+}
+h2:before{
+  counter-increment: chap-h2;
+  content: counter(chap-h1) "-" counter(chap-h2);
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+h3{
+}
+h3:before{
+  counter-increment: chap-h3;
+  content: counter(chap-h1) "-" counter(chap-h2) "-" counter(chap-h3);
+  margin-right: 0.5em;
+}
+h3:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+h4{
+  position: relative;
+  margin-left:1.5em;
+}
+h4:before{
+  width:1em;
+  height:1em;
+  border-radius: 0.2em;
+  border-width:0.1em;
+  border-color: #c85a00;
+  background: #f08c32;
+  border-style: solid;
+  position: absolute;
+  content: "";
+  margin-left:-1.5em;
+}
+
+p.caption{
+  font-size:0.8em;
+  border-radius:0.4em;
+  border-color:black;
+  border-style:dotted;
+  border-width:1px;
+  padding:0.5em;
+}
+p.caption:before{
+  content: "補遺";
+  display: block;
+  font-weight: bold;
+}
+p.desc{
+  font-weight: bold;
+}
+
+div.remember:before{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0 1em;
+
+  background: #f08c32;
+  color: white;
+  content: "覚えよう！";
+}
+div.remember{
+  background: #fadcbe;
+  font-weight: bold;
+  margin:1em 0;
+  padding:0 0 0.5em 0;
+}
+div.remember ul{
+  list-style-type: square;
+}
+
+div.column:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  content: "コラム";
+  font-weight: bold;
+}
+
+div.column{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.column p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.column p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.column p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+dt{
+  margin-block-start: 1em;
+}
+dd{
+  margin-inline-start: 0;
+  margin-block-end: 1em;
+  margin-left: 1em;
+}
+    </style>
+  </head>
+  <body>
+<h2>権利</h2>
+<p class='desc'>権利・人権の体系は、ここ数百年、実用的な倫理問題における主要な体系として発展してきました。
+一方で、倫理の議論では様々な問題を抱えてもいます。</p>
+<h4>権利とは</h4>
+<p class='level_4'>権利の素朴な意義は、単なる行為の承認・合意です。
+しかし、現在における権利はそれに留まりません。
+<span class="decoration2">権利は、倫理一般の実用体系であり、個人・法人・国家など幅広い関係を規定するものです</span>。</p>
+<p class='level_4'><span class="decoration2">権利の存在は効果性肯定命題です</span>。
+従って、権利は実際には存在するわけではありません。
+権利が存在すると考えることは様々な面で有益であるため、存在すると認められているだけです。
+ただし、素朴な意味での権利、つまり権利が意味する合意自体の存在自体は真実性として認められます。</p>
+<p class='level_4'>権利の体系は、倫理に関する量的な合意として現状では代替困難です。
+また、人々が最も真剣に議論し合意した結果でもあります。
+ただし、一部の人間・他国民・国際機関の影響が特に大きい点には注意が必要です。</p>
+<h4>権利の問題</h4>
+<p class='level_4'>権利の概念は有用な一方で問題も多くあります。</p>
+<p class='level_4'>第一の問題は、権利の存在が効果性肯定命題である点です。
+従って、権利の存在から推論を行うことはできません。
+権利は、ある程度の推論を行う前提で設計されていますが、想定された範囲を越えれば意図しない結論を導きます。
+これは当初意図していた効果を得られないことに繋がります。</p>
+<p class='level_4'>第二の問題は、権利が目的としていた効果が、適切に管理されない点です。
+合意される対象も、実際に制度上用いられるものも、権利自体です。
+そのため、本来の目的である権利が偽られたり、記録されないということが起き得ます。</p>
+<p class='level_4'>第三の問題は、極めて複雑である点です。
+効果性肯定命題の体系で現実の問題に対処する必要があるため、様々な例外や理論が入り乱れています。
+従って、特に法学を専門とする人間などの影響力が大きく、一部の人間の意思しか反映しない倫理の体系になってしまっています。
+さらに言えば、独占的な権力行使の道具として用いられているとさえ言えます。</p>
+<h4>権利への対処</h4>
+<p class='level_4'>複雑な問題に対処する際、権利は効果に還元して議論する必要があります。
+つまり、その権利が存在すると認められた理由から、どう行動するべきかを判断しなければなりません。
+権利自体から議論を展開することは多くの問題を招きかねません。</p>
+<p class='level_4'>効果への還元は、議論を単純にし多くの人の意見を反映する利益もあります。
+権利に基づき議論するのは、実物の影から物事を議論するのに似ています。
+無意味ではありませんが、過度に複雑で非効率です。</p>

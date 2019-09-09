@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+div.question p.q:before, div.question p.a:before, div.question p.e:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height :2em;
+  border-radius: 1em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+}
+div.question p.q:before{
+  content:"問題";
+  background: #f08c32;
+}
+div.question p.e:before{
+  content:"解説";
+  background: gray;
+}
+div.question p.e, div.question p.e_noheader{
+}
+div.question:before, div.question:after{
+  content:"";
+  
+  display: block;
+  overflow: hidden;
+  border-style: dotted;
+  border-width: 3px;
+  border-color: #f08c32;
+}
+div.question{
+  margin:1em 0;
+}
+
+div.thex{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.thex:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  font-weight: bold;
+  content:"思考実験";
+}
+div.thex p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.thex p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.thex p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+div.thex p.e:before{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+span.decoration1{
+  font-weight: bold;
+}
+span.decoration2{
+  color: #e68530;
+}
+
+body{
+  counter-reset: chap-h1 chap-h2 chap-h3;
+  margin: 3em;
+}
+p{
+  margin-block-end: 0.5em;
+  margin-block-start: 0.5em;
+}
+
+div.chapter_title{
+  counter-reset: chap-h2 chap-h3;
+}
+div.chapter_title p.title{
+  font-weight:bold;
+  font-size:1.8em;
+}
+div.chapter_title p.title:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+
+h1{
+  counter-reset: chap-h2 chap-h3;
+}
+h1:before{
+  counter-increment: chap-h1;
+  content: "第" counter(chap-h1) "章";
+  margin-right: 0.5em;
+}
+h2{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  counter-reset: chap-h3;
+  background: #f08c32;
+  height:1.8em;
+  color:white;
+}
+h2:before{
+  counter-increment: chap-h2;
+  content: counter(chap-h1) "-" counter(chap-h2);
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+}
+h3{
+}
+h3:before{
+  counter-increment: chap-h3;
+  content: counter(chap-h1) "-" counter(chap-h2) "-" counter(chap-h3);
+  margin-right: 0.5em;
+}
+h3:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+h4{
+  position: relative;
+  margin-left:1.5em;
+}
+h4:before{
+  width:1em;
+  height:1em;
+  border-radius: 0.2em;
+  border-width:0.1em;
+  border-color: #c85a00;
+  background: #f08c32;
+  border-style: solid;
+  position: absolute;
+  content: "";
+  margin-left:-1.5em;
+}
+
+p.caption{
+  font-size:0.8em;
+  border-radius:0.4em;
+  border-color:black;
+  border-style:dotted;
+  border-width:1px;
+  padding:0.5em;
+}
+p.caption:before{
+  content: "補遺";
+  display: block;
+  font-weight: bold;
+}
+p.desc{
+  font-weight: bold;
+}
+
+div.remember:before{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 0 1em;
+
+  background: #f08c32;
+  color: white;
+  content: "覚えよう！";
+}
+div.remember{
+  background: #fadcbe;
+  font-weight: bold;
+  margin:1em 0;
+  padding:0 0 0.5em 0;
+}
+div.remember ul{
+  list-style-type: square;
+}
+
+div.column:before{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 1em 1em 0 0;
+  text-align: center;
+  color: white;
+  background-color: #f08c32;
+
+  content: "コラム";
+  font-weight: bold;
+}
+
+div.column{
+  background: #fadcbe;
+  border-color: #f08c32;
+  border-radius: 1em;
+  
+  margin: 0.5em 0;
+  padding:0 0 0.5em 0;
+}
+div.column p{
+  margin-left: 1em;
+  margin-right: 1em
+}
+div.column p.title{
+  font-weight:bold;
+  text-align:center;
+}
+div.column p.title:after{
+  content:"";
+  display: block;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f08c32;
+}
+
+dt{
+  margin-block-start: 1em;
+}
+dd{
+  margin-inline-start: 0;
+  margin-block-end: 1em;
+  margin-left: 1em;
+}
+    </style>
+  </head>
+  <body>
+<h2>基本</h2>
+<p class='desc'>本格的な議論を始める前に、いくつかの基本と本書の方針を確認しておきます。</p>
+<h3>倫理について</h3>
+<p class='desc'>倫理についてのごく基本的な話と、本書での捉え方を説明します。</p>
+<h4>倫理とは</h4>
+<p class='level_4'>「倫理とは何か」というのは哲学的な問いに聞こえます。
+<span class="decoration2">本書では倫理を「行動一般に関する妥当性」程度に捉えます</span>。
+重大な決断であれ、日常の行動であれ、連続して捉えるべきだと考えます。
+必ずしも理想や人間としての道を探求するというわけではなく、どちらが良いだろうかという素朴な視点が必要だと考えています。
+これは、通常の意味での「倫理」の意義とは多少異なるかもしれませんが、概ね同義です。</p>
+<p class='level_4'>もちろん、行動一般というならば様々な既存の学問が存在します。
+例えば、工学は何かを作る行動に関する妥当性を追求する学問であり、ここでの倫理の一部分だと言えます。
+しかし、そうした具体的で細かな問題は別に任せ、本書では全体を俯瞰し犯しやすい過ちに注意をします。</p>
+<h4>倫理と真実</h4>
+<p class='level_4'>本書では、「真実」について特に丁寧に追っていきます。
+「倫理の話なのに、なぜ真実？」と思うかもしれませんが、倫理と真実の関係は深いです。</p>
+<p class='level_4'>まず、真実を知らねば行動を決めようがありません。
+倫理は真実に依拠しています。
+そして、行動に利用する際には、真実の探求を注意して行わなければなりません。</p>
+<p class='level_4'>次に、そもそも倫理問題自体が真実です。
+答えがない、語りうるものが何もない、とすれば探求する意味もないでしょう。
+仮に倫理の問いに答えがあるなら、倫理の探求は真実の探求の一種です。
+倫理は簡単に語れるものでないからこそ、真実について語らなければなりません。</p>
+<h3>本書の方針</h3>
+<p class='desc'>本書での基本的な方針を示します。</p>
+<h4>非歴史的倫理学</h4>
+<p class='level_4'>本書では倫理学の歴史や、歴史的な考え方を追うつもりはありません。
+そうした手法は現代の倫理学におけるありがちな手法です。
+歴史は決して無用ではなく、尊重し学ぶことは無駄にはなりません。
+しかし、本書ではそうした手順を取りません。</p>
+<p class='level_4'>過去の哲学者や倫理学者が語った倫理について知りたいなら、その手段は多数あります。
+本も記事も多数出ていますから、読んでみるのも良いでしょう。
+しかし本書が語るのはいわば非歴史的倫理学です。</p>
+<h4>前提知識</h4>
+<p class='level_4'>本書では、いくつか一般的でない用語や知識を前提にしている部分があります。
+それは必ずしも倫理学に限ったものではありません。
+しかし、私は概ね百科事典で得られる以上の知識を求めるつもりはありません。
+調べても分からないなら、それは本書が意図するところではありません。</p>
+<p class='level_4'>本来なら前提知識についても詳しく解説しても良いかもしれません。
+できるところならそうしていますが、そうしていないところがあれば、それは私が説明するより調べた方が分かりやすいと考えているからです。</p>
+<h4>証明</h4>
+<p class='level_4'>本書は教科書・入門書に近い体裁を取っています。
+実際には、教科書と違い十分に認められていなかったり、発展途上だったりする内容も含まれています。
+また、多くの内容は私が発見した、あるいは主張しているものです。</p>
+<p class='level_4'>教科書の体裁から、内容は十分に証明されては居ません。
+根拠は概ね示しているつもりですが、十分でないと考える人もいるだろうと思います。
+加えて出展や参考文献も示していませんが、実際のところそんなものはありません。</p>
+<p class='level_4'>それでも、私としては本書は入門書として十分の実用性を備えていると考えています。
+実際のところ、倫理学の棚に並ぶほとんどの書籍や論文より、現実の問題に対処できるはずです。
+現在の倫理学はそれほど悲惨な状況にあります。
+なにより、本書が指摘していながら多くの人が気に掛けていないような誤りが多数存在します。</p>
+<h4>文章</h4>
+<p class='level_4'>細かな点ですが、文章の書き方にもいくつか工夫をしています。
+これは、基本的に読みやすさを重視したものです。</p>
+<p class='level_4'>具体的には、まず読点を多めに打っています
+次に一文をある程度短くするようにしています。
+こうした文章は逆に読みづらいという人も多いかもしれませんが、これは手元にあった入門書を参考にした方針です。</p>

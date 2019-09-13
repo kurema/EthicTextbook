@@ -1,0 +1,14 @@
+﻿# ロックアプリ
+Android用画面ロックアプリを作ろうかなと思う。
+単純にタップすればスリープするだけの単純な奴。
+既存の奴は広告多めでちょいうっとうしいし、簡単に作れそう。
+でも後でね。
+
+URLメモ
+* https://app.getpocket.com/read/1969699897
+* https://qiita.com/tadaogi/items/a6b0bafc734e40cd3ccf
+* https://docs.microsoft.com/ja-jp/xamarin/android/app-fundamentals/notifications/
+
+出来れば通知タイルでも。
+
+広告がうざいので作るつもりだが、必然的にマネタイズの手段がないね。
